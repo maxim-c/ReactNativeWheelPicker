@@ -27,7 +27,7 @@ class DatePicker extends React.Component {
     this.daysAfterSelectedDate = Math.round(daysStartDate);
     this.initDayInex = this.props.startDate ? Math.round(days) - Math.round(daysStartDate) : Math.round(days);
     this.initHourInex = this.props.format24 ? time24format : time12format[0] - 1;
-    this.initMinuteInex = Math.round(this.selectedDate.getMinutes() / 5);
+    this.initMinuteInex = Math.round(this.selectedDate.getMinutes());
     this.initAmInex = time12format[1] === 'AM' ? 0 : 1;
   }
 
@@ -38,7 +38,6 @@ class DatePicker extends React.Component {
           style={styles.dateWheelPicker}
           isAtmospheric
           isCurved
-          visibleItemCount={8}
           data={this.props.days ? this.props.days : PickerDateArray(this.props.startDate, this.props.daysCount)}
           selectedItemTextColor={'black'}
           onItemSelected={data => this.onDaySelected(data)}
@@ -49,7 +48,6 @@ class DatePicker extends React.Component {
           isAtmospheric
           isCyclic
           isCurved
-          visibleItemCount={8}
           data={this.props.hours ? this.props.hours : getHoursArray()}
           selectedItemTextColor={'black'}
           onItemSelected={data => this.onHourSelected(data)}
@@ -60,8 +58,7 @@ class DatePicker extends React.Component {
           isAtmospheric
           isCyclic
           isCurved
-          visibleItemCount={8}
-          data={this.props.minutes ? this.props.minutes : getFiveMinutesArray()}
+          data={this.props.minutes ? this.props.minutes : getMinutesArray()}
           selectedItemTextColor={'black'}
           onItemSelected={data => this.onMinuteSelected(data)}
           selectedItemPosition={this.initMinuteInex}
@@ -78,7 +75,6 @@ class DatePicker extends React.Component {
           style={styles.wheelPicker}
           isAtmospheric
           isCurved
-          visibleItemCount={8}
           data={getAmArray()}
           selectedItemTextColor={'black'}
           onItemSelected={data => this.onAmSelected(data)}
@@ -147,19 +143,17 @@ DatePicker.propTypes = {
 
 let styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 25
   },
   wheelPicker: {
-    height: 150,
-    width: null,
-    flex: 1,
+    height: 180,
+    flex: 0.4,
   },
   dateWheelPicker: {
-    height: 200,
-    width: null,
-    flex: 3,
+    height: 180,
+    flex: 1,
   },
 });
 
@@ -231,6 +225,8 @@ function getFiveMinutesArray() {
   }
   return arr;
 }
+
+const getMinutesArray = () => [...Array(60)].map((v, i) => ('0' + i).slice(-2))
 
 function getAmArray() {
   const arr = [];

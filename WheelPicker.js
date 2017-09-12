@@ -44,6 +44,7 @@ class WheelPicker extends React.Component {
          itemTextFontFamily={this.props.itemTextFontFamily}
          selectedItemPosition={this.state.selectedItemPosition}
          backgroundColor={this.props.backgroundColor}
+         indicatorSize={this.props.indicatorSize}
          />
      );
    }
@@ -60,6 +61,7 @@ WheelPicker.propTypes = {
       visibleItemCount: PropTypes.number,
       renderIndicator: PropTypes.bool,
       indicatorColor: PropTypes.string,
+      indicatorSize: PropTypes.number,
       isCurtain: PropTypes.bool,
       curtainColor: PropTypes.string,
       itemTextColor: PropTypes.string,
